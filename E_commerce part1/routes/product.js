@@ -73,7 +73,7 @@ router.patch('/products/:id' , validateProduct , async(req,res)=>{  //patch req 
         let {name , img , price , desc} = req.body;
         await Product.findByIdAndUpdate(id , {name , img , price , desc} );
         req.flash('success' , 'Product edited successfully');
-        res.redirect('/products')
+        res.redirect(`/products/${id}`)
     }
     catch(e){
         res.render('error' , {err : e.message})

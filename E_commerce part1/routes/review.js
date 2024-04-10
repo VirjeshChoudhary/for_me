@@ -9,11 +9,11 @@ router.post('/products/:id/review' , validateReview , async(req,res)=>{
         let { rating , comment } = req.body;
         let { id } = req.params;
 
-        let product = await Product.findById(id);
-        let review  = new Review({ rating , comment });
-        product.reviews.push(review);
-        await product.save();
-        await review.save(); 
+        let product = await Product.findById(id); 
+        let review  =await Review.create({ rating , comment });//we dont need save here bcz it is mongo db cmd
+        product.reviews.push(review); 
+        await product.save(); //bcz it is js command so we need to save it
+        
         req.flash('success','Review added successfully');
         res.redirect(`/products/${id}`);
     }
